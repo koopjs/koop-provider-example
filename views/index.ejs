@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Koop</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" media="all" rel="stylesheet" />
+
+    <style>
+      input.sample-input {
+        margin-bottom: 10px;
+      }
+
+      .box {
+        border: 1px solid #777;
+      }
+
+      .highlight {
+        padding: 9px 14px;
+        margin-bottom: 14px;
+        background-color: #f7f7f9;
+        border: 1px solid #e1e1e8;
+        border-radius: 4px;
+        margin: 10px;
+      }
+
+      .load-form {
+        position: absolute;
+        width:300px;
+        top: 10px;
+        left:45px;
+      }
+
+      #map {
+        position:fixed;
+        top:0px;
+        left:0px;
+        right:0px;
+        bottom:0px;
+      }
+    </style>
+    
+  </head>
+
+  <body>
+
+    <!-- Javascripts from your assets folder are included here -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/esri-leaflet.js"></script>
+    <script type="text/javascript" src="/js/map.js"></script>
+
+    <div id="map"></div>
+      <div class="load-form">
+        <input type="text" id="github" class="form-control pull-left" placeholder="Enter a user/repo/file" style="width:225px">
+        <button class="btn btn-primary pull-right" onClick="load()">Load</button>
+      </div>
+    
+    <script>
+    
+      function load(){
+        var val = document.getElementById('github').value.split('/');
+        var user = val.shift();
+        var repo = val.shift();
+        if ( val.length > 1){
+          var path = val.join('::');
+        } else {
+          var path = val[0];
+        }
+        if ( user && repo && path ) {
+          location.href = '/github/' + [ user, repo, path ].join('/') + '/preview';
+        }
+      }
+    
+      $(function(){
+        var mapDom = 'map';
+        $('#'+mapDom).css({ width:document.width, height: document.height });
+        var koop = koopMap( mapDom );
+      });
+    
+    </script>
+
+  </body>
+</html>
+
