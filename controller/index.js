@@ -1,25 +1,12 @@
-var extend = require('node.extend'),
-  crypto = require('crypto'),
-  fs = require('fs');
+var BaseController = require('koop-server/lib/Controller.js');
 
-// inherit from base controller (global via koop-server)
-var Controller = extend( {}, BaseController );
+var Controller = function( Sample ){
 
-// general helper for not found repos
-Controller.notFound = function(req, res){
-  res.send('A useful error for missing data', 404);
-};
+  this.index = function(req, res){
+    res.send('This is a sample provider');
+  };
 
-
-// general helper for error'd requests
-Controller.Error = function(req, res){
-  res.send('Another useful error', 500);
-};
-
-
-// 
-Controller.get = function(req, res){
-    var key = ['sample'];
+  this.get = function(req, res){
     Sample.find(req.params.id, req.query, function(err, data){
       if (err){
         res.send(err, 500);
@@ -27,9 +14,9 @@ Controller.get = function(req, res){
         res.json( data );
       }
     });
-};
+  };
 
-Controller.featureservice = function(req, res){
+  this.featureserver = function(req, res){
     var callback = req.query.callback, self = this;
     delete req.query.callback;
 
@@ -37,10 +24,19 @@ Controller.featureservice = function(req, res){
       if (err) {
         res.send(err, 500);
       } else {
+        // we remove the geometry if the "find" method already handles geo selection in the cache
         delete req.query.geometry;
-        Controller._processFeatureServer( req, res, err, data, callback);
+        BaseController._processFeatureServer( req, res, err, data, callback);
       }
     });
+  };
+
+  this.preview = function(req, res){
+    res.render(__dirname + '/../views/demo', { locals:{ id: req.params.id } });
+  }
+  
+  return this;
+
 };
 
 module.exports = Controller;

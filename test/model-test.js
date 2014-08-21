@@ -1,33 +1,26 @@
 var should = require('should'),
   config = require('config'),
-  koopserver = require('koop-server')(config); 
-
-global.config = config;
-
-var id = 'id';
+  koop = require('koop-server/lib');
 
 before(function (done) {
-  global['Sample'] = require('../models/Sample.js');
+  koop.Cache.db = koop.PostGIS.connect( config.db.postgis.conn );
+  Sample = new require('../models/Sample.js')( koop );
   done();
 });
 
 describe('Sample Model', function(){
 
-    describe('when finding a data', function(){
-      before(function(done ){
-        // connect the cache
-        Cache.db = PostGIS.connect( config.db.postgis.conn );
-        done();
-      });
-
-      afterEach(function(done){
-        done();
-      });
-    
-      it('should find and return the data', function(done){
-        Sample.find(id, {}, function(err, data){
+    describe('when getting data', function(){
+      it('should find and return geojson', function(done){
+        Sample.find(1, {}, function(err, data){
+          // there should not be any errors
           should.not.exist(err);
+          // should always return the data as geojson
           should.exist(data);
+          // data should be an array (support multi layer responses)
+          data.length.should.equal(1);
+          // make sure we have a feature collection
+          data[0].type.should.equal('FeatureCollection');
           done();
         });
       });
