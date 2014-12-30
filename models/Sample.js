@@ -1,10 +1,9 @@
-var request = require('request'),
-  BaseModel = require('koop-server/lib/BaseModel.js');
+var request = require('request');
 
 var Sample = function( koop ){
 
   var sample = {};
-  sample.__proto__ = BaseModel( koop );
+  sample.__proto__ = koop.BaseModel( koop );
 
   sample.find = function( id, options, callback ){
 

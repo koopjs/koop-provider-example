@@ -1,6 +1,5 @@
-var BaseController = require('koop-server/lib/BaseController.js');
 
-var Controller = function( Sample ){
+var Controller = function( Sample, BaseController ){
 
   // inherit from the base controller to share some logic 
   var controller = {};
