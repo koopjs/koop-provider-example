@@ -1,28 +1,30 @@
 {
-  "name": "koop-sample",
-  "version": "0.0.1",
+  "name": "koop-sample-provider",
   "description": "Sample provider for Koop",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "mocha test/"
+  "version": "0.0.1",
+  "author": "Chris Helm",
+  "bugs": {
+    "url": "https://github.com/koopjs/koop-sample-provider/issues"
   },
   "dependencies": {
-    "koop-server": "*",
-    "config": "~0.4.35",
-    "ejs": "~1.0.0"
+    "ejs": "~1.0.0",
+    "koop-server": "*"
   },
-  "author": "Chris Helm",
-  "license": "BSD-2-Clause",
   "devDependencies": {
-    "supertest": "~0.11.0",
     "should": "~4.0.4",
-    "sinon": "~1.10.3"
+    "sinon": "~1.10.3",
+    "standard": "*",
+    "supertest": "~0.11.0"
   },
+  "homepage": "https://github.com/koopjs/koop-sample-provider#readme",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "private": "true",
   "repository": {
     "type": "git",
-    "url": "https://github.com:chelm/koop-sample-provider.git"
+    "url": "git@github.com:koopjs/koop-sample-provider.git"
+  },
+  "scripts": {
+    "test": "standard && mocha test/"
   }
 }
