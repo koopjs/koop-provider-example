@@ -1,22 +1,21 @@
-var request = require('request');
+var request = require('request')
 
-var Sample = function( koop ){
+var Sample = function (koop) {
+  var sample = new koop.BaseModel(koop)
 
-  var sample = {};
-  sample.__proto__ = koop.BaseModel( koop );
+  sample.find = function (id, options, callback) {
+    var type = 'Sample'
 
-  sample.find = function( id, options, callback ){
+    // check the cache for data with this type & id
+    koop.Cache.get(type, id, options, function (err, entry) {
+      if (err) {
+        // if we get an err then get the data and insert it
+        var url = 'http://...' + id // <-- change this to point to a real URL
 
-    var type = 'Sample';
-    
-    // check the cache for data with this type & id 
-    koop.Cache.get( type, id, options, function(err, entry ){
-      if ( err){
-        // if we get an err then get the data and insert it 
-        var url = 'http://...'+id; // <-- change this to point to a real URL
-  
-        request.get(url, function(e, res){
-          //var json = JSON.parse(res.body);
+        request.get(url, function (err, res) {
+          if (err) return callback(err)
+
+          // var json = JSON.parse(res.body)
           // do something; turn json into GeoJSON
           // fake some geojson data for the sake of example
           var geojson = {
@@ -25,29 +24,27 @@ var Sample = function( koop ){
               type: 'Feature',
               properties: {
                 prop1: true
-              }, 
+              },
               geometry: {
                 type: 'Point',
                 coordinates: [0, 0]
               }
             }]
-          };
-  
-          // insert data into the cache; assume layer is 0 unless there are many layers (most cases 0 is fine)  
-          koop.Cache.insert( type, id, geojson, 0, function( err, success){
-            if ( success ) {
-              callback( null, geojson );
-            }
-          });
-        });
+          }
+
+          // insert data into the cache; assume layer is 0 unless there are many layers (most cases 0 is fine)
+          koop.Cache.insert(type, id, geojson, 0, function (err, success) {
+            if (err) return callback(err)
+            if (success) callback(null, geojson)
+          })
+        })
       } else {
-        callback( null, entry );
+        callback(null, entry)
       }
-    });
-  };
+    })
+  }
 
-  return sample;
+  return sample
+}
 
-};
-
-module.exports = Sample;
+module.exports = Sample

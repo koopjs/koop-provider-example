@@ -23,7 +23,7 @@ var provider = {
   routes: require('./routes'),
 
   // required
-  model: require('./model'),
+  model: require('./models/Sample'),
 
   // used to share information about the provider with the koop server
   status: {

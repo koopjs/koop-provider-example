@@ -8,13 +8,14 @@
   },
   "dependencies": {
     "ejs": "~1.0.0",
-    "koop-server": "*"
+    "request": "^2.58.0"
   },
   "devDependencies": {
-    "should": "~4.0.4",
-    "sinon": "~1.10.3",
+    "koop": "^2.4.1",
+    "sinon": "^1.15.4",
     "standard": "*",
-    "supertest": "~0.11.0"
+    "supertest": "^1.0.1",
+    "tape": "^4.0.0"
   },
   "homepage": "https://github.com/koopjs/koop-sample-provider#readme",
   "license": "Apache-2.0",
@@ -25,6 +26,6 @@
     "url": "git@github.com:koopjs/koop-sample-provider.git"
   },
   "scripts": {
-    "test": "standard && mocha test/"
+    "test": "standard && tape test/*.js"
   }
 }
