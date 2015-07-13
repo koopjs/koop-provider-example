@@ -1,7 +1,7 @@
 {
   "name": "koop-sample",
   "version": "0.0.1",
-  "description": "A sample provider for koop ",
+  "description": "Sample provider for Koop",
   "main": "index.js",
   "directories": {
     "test": "test"
