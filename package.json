@@ -27,6 +27,6 @@
     "url": "git@github.com:koopjs/koop-sample-provider.git"
   },
   "scripts": {
-    "test": "standard && node test/*.js | tap-spec"
+    "test": "standard && tape test/*.js | tap-spec"
   }
 }
