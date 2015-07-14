@@ -9,12 +9,12 @@ var provider = {
   // Flags the provider as supporting registered hosts.
   // Set this to true if the provider can point to more than one instance.
   // optional, defaults to false
-  hosts: true,
+  // hosts: true,
 
   // Used to build default routes
   // a pattern is essentially the default route pattern for the provider
   // optional
-  pattern: '/:id',
+  // pattern: '/:id',
 
   // required
   controller: require('./controller'),
