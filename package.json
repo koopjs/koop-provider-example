@@ -15,6 +15,7 @@
     "sinon": "^1.15.4",
     "standard": "*",
     "supertest": "^1.0.1",
+    "tap-spec": "^4.0.2",
     "tape": "^4.0.0"
   },
   "homepage": "https://github.com/koopjs/koop-sample-provider#readme",
@@ -26,6 +27,6 @@
     "url": "git@github.com:koopjs/koop-sample-provider.git"
   },
   "scripts": {
-    "test": "standard && tape test/*.js"
+    "test": "standard && node test/*.js | tap-spec"
   }
 }
