@@ -5,5 +5,5 @@ module.exports = {
   'get /sample': 'index',
   'get /sample/:id': 'get',
   'get /sample/:id/preview': 'preview',
-  'get /sample/:id/FeatureServer': 'featureServer'
+  'get /sample/:id/FeatureServer': 'featureserver'
 }
