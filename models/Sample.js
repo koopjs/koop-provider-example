@@ -36,7 +36,7 @@ var Sample = function (koop) {
           // var json = JSON.parse(res.body)
           // do something; turn json into GeoJSON
           // fake some geojson data for the sake of example
-          var geojson = {
+          var geojson = [{
             type: 'FeatureCollection',
             features: [{
               type: 'Feature',
@@ -48,7 +48,7 @@ var Sample = function (koop) {
                 coordinates: [0, 0]
               }
             }]
-          }
+          }]
 
           // insert data into the cache; assume layer is 0 unless there are many layers (most cases 0 is fine)
           koop.Cache.insert(type, id, geojson, 0, function (err, success) {
