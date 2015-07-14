@@ -3,6 +3,24 @@ var request = require('request')
 var Sample = function (koop) {
   var sample = new koop.BaseModel(koop)
 
+  /**
+   * Wrap the request module for easy testing
+   * issues a get request to given URL
+   *
+   * @param {string} url - a url to a resource
+   * @param {function} callback
+   */
+  sample.request = function (url, callback) {
+    request.get(url, callback)
+  }
+
+  /**
+   * Find a resource, typically JSON, within an external API or Database
+   *
+   * @param {string} id - an id used to reference the remote resource
+   * @param {object} options - any optional params needed for the request
+   * @param {function} callback
+   */
   sample.find = function (id, options, callback) {
     var type = 'Sample'
 
@@ -12,7 +30,7 @@ var Sample = function (koop) {
         // if we get an err then get the data and insert it
         var url = 'http://...' + id // <-- change this to point to a real URL
 
-        request.get(url, function (err, res) {
+        sample.request(url, function (err, res) {
           if (err) return callback(err)
 
           // var json = JSON.parse(res.body)
