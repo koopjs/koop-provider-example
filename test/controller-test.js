@@ -22,11 +22,14 @@ if (provider.pattern) {
 // bind the routes into Koop
 koop._bindRoutes(provider.routes, controller)
 
-sinon.stub(model, 'find', function (id, options, callback) {
-  callback(null, [{
-    type: 'FeatureCollection',
-    features: [{ properties: {}, coordinates: {}, type: 'Feature' }]
-  }])
+test('controller: setup', function (t) {
+  sinon.stub(model, 'find', function (id, options, callback) {
+    callback(null, [{
+      type: 'FeatureCollection',
+      features: [{ properties: {}, coordinates: {}, type: 'Feature' }]
+    }])
+  })
+  t.end()
 })
 
 test('controller: index', function (t) {
@@ -67,4 +70,9 @@ test('controller: FeatureServer', function (t) {
       t.equal(res.status, 200, 'returns 200')
       t.end()
     })
+})
+
+test('controller: teardown', function (t) {
+  model.find.restore()
+  t.end()
 })
