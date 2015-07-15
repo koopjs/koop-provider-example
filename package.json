@@ -11,7 +11,7 @@
     "request": "^2.58.0"
   },
   "devDependencies": {
-    "koop": "^2.4.1",
+    "koop": "^2.4.2",
     "sinon": "^1.15.4",
     "standard": "*",
     "supertest": "^1.0.1",
