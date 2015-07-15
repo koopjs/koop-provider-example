@@ -4,8 +4,8 @@ var sinon = require('sinon')
 var Model = require('../models/Sample')
 var sample
 
-// koop.Cache = new koop.DataCache(koop)
-// koop.Cache.db = koop.LocalDB
+koop.Cache = new koop.DataCache(koop)
+koop.Cache.db = koop.LocalDB
 sample = new Model(koop)
 
 test('model: setup', function (t) {
