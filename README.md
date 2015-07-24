@@ -1,6 +1,4 @@
-# koop-sample-provider
-
-> Sample provider for Koop
+# Sample provider for Koop
 
 This repo is meant to act as a simple starting point for developing new providers for Koop.
 
