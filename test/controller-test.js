@@ -1,102 +1,78 @@
-var should = require('should'),
-  sinon = require('sinon'),
-  config = require('config'),
-  request = require('supertest'),
-  // we require Koop so we can fake having an actual server running 
-  koop = require('koop-server')(config);
+var test = require('tape')
+var kooplib = require('koop/lib')
+var koop = require('koop')({})
+var request = require('supertest')
+var sinon = require('sinon')
 
-  // we need koop/lib so we can have access to shared code not exposed directly off the koop object
-  kooplib = require('koop-server/lib');
+var provider = require('../')
+var Controller = require('../controller')
+var Model = require('../models/Sample')
 
-var sample;
+// create the model
+var model = new Model(kooplib)
 
-before(function(done){
-  // pull in the provider module
-  var provider = require('../index.js');
+// pass the model to the controller
+var controller = new Controller(model, kooplib.BaseController)
 
-  // create the model
-  sample = new provider.model( kooplib );
+// bind the default routes so we can test that those work
+if (provider.pattern) {
+  koop._bindDefaultRoutes(provider.name, provider.pattern, controller)
+}
 
-  // pass the model to the controller 
-  var controller = new provider.controller( sample );
+// bind the routes into Koop
+koop._bindRoutes(provider.routes, controller)
 
-  // bind the default routes so we can test that those work
-  koop._bindDefaultRoutes( provider.name, provider.pattern, controller );
+test('controller: setup', function (t) {
+  sinon.stub(model, 'find', function (id, options, callback) {
+    callback(null, [{
+      type: 'FeatureCollection',
+      features: [{ properties: {}, coordinates: {}, type: 'Feature' }]
+    }])
+  })
+  t.end()
+})
 
-  // bind the routes into Koop 
-  koop._bindRoutes( provider.routes, controller );
-  done();
-});
+test('controller: index', function (t) {
+  request(koop)
+    .get('/sample')
+    .end(function (err, res) {
+      t.error(err, 'does not error')
+      t.equal(res.status, 200, 'returns 200')
+      t.end()
+    })
+})
 
-after(function(done){
-  done();
-});
+test('controller: get', function (t) {
+  request(koop)
+    .get('/sample/1')
+    .end(function (err, res) {
+      t.error(err, 'does not error')
+      t.equal(res.status, 200, 'returns 200')
+      t.end()
+    })
+})
 
-describe('Sample Controller', function(){
+test('controller: preview', function (t) {
+  request(koop)
+    .get('/sample/1/preview')
+    .end(function (err, res) {
+      t.error(err, 'does not error')
+      t.equal(res.status, 200, 'returns 200')
+      t.end()
+    })
+})
 
-    describe('get', function() {
-      before(function(done ){
+test('controller: FeatureServer', function (t) {
+  request(koop)
+    .get('/sample/1/FeatureServer')
+    .end(function (err, res) {
+      t.error(err, 'does not error')
+      t.equal(res.status, 200, 'returns 200')
+      t.end()
+    })
+})
 
-        // we stub the find method so we dont actually try to call it
-        // we're not testing the model here, just that the controller should call the model 
-        sinon.stub(sample, 'find', function(id, options, callback){
-          callback(null, [{ 
-            type:'FeatureCollection', 
-            features: [{ properties: {}, coordinates: {}, type: 'Feature' }] 
-          }]);
-        });
-
-        done();
-      });
-
-      after(function(done){
-        // restore the stubbed methods so we can use them later if we need to
-        sample.find.restore();
-        done();
-      });
-
-      it('/sample/1 should call find', function(done){
-        request(koop)
-          .get('/sample/1')
-          .end(function(err, res){
-            res.status.should.equal(200);
-            //sample.find.called.should.equal(true);
-            done();
-        }); 
-      });
-    });
-
-    describe('index', function() {
-      it('/sample should return 200', function(done){
-        request(koop)
-          .get('/sample')
-          .end(function(err, res){
-            res.status.should.equal(200);
-            done();
-        });
-      });
-    });
-
-    describe('preview', function() {
-      it('/sample/1/preview should return 200', function(done){
-        request(koop)
-          .get('/sample/1/preview')
-          .end(function(err, res){
-            res.status.should.equal(200);
-            done();
-        });
-      });
-    });
-
-    describe('FeatureServer', function() {
-      it('/sample/1/FeatureServer should return 200', function(done){
-        request(koop)
-          .get('/sample/1/FeatureServer')
-          .end(function(err, res){
-            res.status.should.equal(200);
-            done();
-        });
-      });
-    });
-
-});
+test('controller: teardown', function (t) {
+  model.find.restore()
+  t.end()
+})

@@ -1,15 +1,36 @@
-// the name of provider is used by koop to help build default routes for FeatureService and a preview
-exports.name = 'sample';
+// require package.json to get access to provider module info
+var pkg = require('./package.json')
 
-// the "pattern" is used to build routes and is optional 
-// a pattern is essentially the default route pattern for the provider 
-exports.pattern = '/:id';
+var provider = {
+  // Used by koop to help build default routes for FeatureService and preview.
+  // required
+  name: 'Sample',
 
-// attached the controller to the provider 
-exports.controller = require('./controller');
+  // Flags the provider as supporting registered hosts.
+  // Set this to true if the provider can point to more than one instance.
+  // optional, defaults to false
+  // hosts: true,
 
-// attaches the routes file to the provider 
-exports.routes = require('./routes');
+  // Used to build default routes
+  // a pattern is essentially the default route pattern for the provider
+  // optional
+  // pattern: '/:id',
 
-// attaches the model to the provider to be passed into the controller at start up time 
-exports.model = require('./models/Sample.js');  
+  // required
+  controller: require('./controller'),
+
+  // required
+  routes: require('./routes'),
+
+  // required
+  model: require('./models/Sample'),
+
+  // used to share information about the provider with the koop server
+  status: {
+    // version of this provider (should be same as version in package.json)
+    version: pkg.version
+  }
+}
+
+// export the provider so koop has access to it
+module.exports = provider

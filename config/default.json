@@ -1,7 +1,0 @@
-{ 
-  "db": {
-    "postgis": {
-      "conn": "postgres://localhost/koopdev"
-    }
-  }
-}

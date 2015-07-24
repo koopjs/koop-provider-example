@@ -1,31 +1,31 @@
-var should = require('should'),
-  config = require('config'),
-  koop = require('koop-server/lib');
+var test = require('tape')
+var koop = require('koop/lib')
+var sinon = require('sinon')
+var Model = require('../models/Sample')
+var sample
 
-before(function (done) {
-  koop.Cache.db = koop.PostGIS.connect( config.db.postgis.conn );
-  Sample = new require('../models/Sample.js')( koop );
-  done();
-});
+koop.Cache = new koop.DataCache(koop)
+koop.Cache.db = koop.LocalDB
+sample = new Model(koop)
 
-describe('Sample Model', function(){
+test('model: setup', function (t) {
+  sinon.stub(sample, 'request', function (url, callback) {
+    return callback(null, [{type: 'FeatureCollection', features: []}])
+  })
+  t.end()
+})
 
-    describe('when getting data', function(){
-      it('should find and return geojson', function(done){
-        Sample.find(1, {}, function(err, data){
-          // there should not be any errors
-          should.not.exist(err);
-          // should always return the data as geojson
-          should.exist(data);
-          // data should be an array (support multi layer responses)
-          data.length.should.equal(1);
-          // make sure we have a feature collection
-          data[0].type.should.equal('FeatureCollection');
-          done();
-        });
-      });
+test('model: find', function (t) {
+  sample.find(1, {}, function (err, data) {
+    t.error(err, 'data returned without error')
+    t.ok(data, 'data exists')
+    t.ok(Array.isArray(data), 'data is an array')
+    t.equal(data[0].type, 'FeatureCollection', 'data contains object of type FeatureCollection')
+    t.end()
+  })
+})
 
-    });
-
-});
-
+test('model: teardown', function (t) {
+  sample.request.restore()
+  t.end()
+})
