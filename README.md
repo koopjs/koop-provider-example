@@ -6,13 +6,13 @@ This repo is meant to act as a simple starting point for developing new provider
 
 ## What's a Provider?
 
-A Koop provider is a sort of plugin to Koop that wraps any API or source of data so that it can be used within the Koop's codebase. Koop doesn't come with any providers out of the box which is nice from the stand point of development (keeping it all seperate means Koop remains light), but present a few challenges to things like deploying Koop and understanding how all the bits and peices work.
+A Koop provider is a plugin for Koop that wraps any API or source of data so that it can be used within the Koop's codebase. Koop doesn't come with any providers out of the box, which keeps it lightweight.
 
-Providers all follow a standard structure that closely resembles that of most MVC frameworks. A provider consists of `routes`, `controllers`, `models` and `views` (each explained in more detail below). The basic gist is that each provider is "registered" into Koop at the time the server is started. The provider's routes are bound into the Koop server. Each route maps to a specific `controller` and each controller is passed the providers `model`. Each `model` is designed to have to access to the core code in Koop which gives it access to centralized things like a Cache (db) and shared code for doing like creating FeatureServices.
+Providers all follow a standard structure that closely resembles that of most MVC frameworks. A provider consists of `routes`, a `controller`, a `model`, and `views` (each explained in more detail below). The basic gist is that each provider is "registered" when the server starts. The provider's routes are bound into the Koop server. Each route maps to a specific `controller` and each controller is passed the providers `model`. Each `model` is designed to have access to the core code in Koop which gives it access to centralized things like a Cache (db) and shared code for doing like creating FeatureServices.
 
 ## Koop Architecture
 
-Koop is split up into two core repos: [https://github.com/Esri/koop](https://github.com/Esri/koop) and [https://github.com/Esri/koop-server](https://github.com/Esri/koop-server). Both of these are built on top of the Express framework and follow its middleware pattern. The primary [Koop](https://github.com/Esri/koop) repo is a very simple shell.
+Koop consists of the core [koop](http://github.com/koopjs/koop) module used in combination with [providers](http://koopjs.github.io/docs/providers), a [cache](http://koopjs.github.io/docs/caches), and optional [plugins](http://koopjs.github.io/docs/plugins). Koop acts as Express middleware and can register providers to set up routes for interacting with data from other sources. [Read the documentation](http://koopjs.github.io) to find out more about Koop's architecture.
 
 ### `index.js`
 
@@ -24,7 +24,7 @@ Routes tell koop what methods in the controller should respond to what requests.
 
 ### Controller
 
-Controllers handle formatting request params and query strings, passing requests to Models, and responding to requests with data from Models.
+Controllers handle formatting request parameters and query strings, passing requests to Models, and responding to requests with data from Models.
 
 ### Models
 
