@@ -1,7 +1,7 @@
 /*
   model.js
 
-  This file is required. It must export a class with at least one public funciton called `getData`
+  This file is required. It must export a class with at least one public function called `getData`
 
   Documentation: http://koopjs.github.io/docs/specs/provider/
 */
