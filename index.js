@@ -1,36 +1,20 @@
-// require package.json to get access to provider module info
-var pkg = require('./package.json')
+/*
+  index.js
 
-var provider = {
-  // Used by koop to help build default routes for FeatureService and preview.
-  // required
-  name: 'Sample',
+  This file is required. It's role is to specify configuration settings.
 
-  // Flags the provider as supporting registered hosts.
-  // Set this to true if the provider can point to more than one instance.
-  // optional, defaults to false
-  // hosts: true,
+  Documentation: http://koopjs.github.io/docs/specs/provider/
+*/
 
-  // Used to build default routes
-  // a pattern is essentially the default route pattern for the provider
-  // optional
-  // pattern: '/:id',
-
-  // required
-  controller: require('./controller'),
-
-  // required
+const provider = {
+  type: 'provider',
+  name: 'sample',
+  hosts: false,
+  disableIdParam: true,
+  Controller: require('./controller'),
+  Model: require('./model'),
   routes: require('./routes'),
-
-  // required
-  model: require('./models/Sample'),
-
-  // used to share information about the provider with the koop server
-  status: {
-    // version of this provider (should be same as version in package.json)
-    version: pkg.version
-  }
+  version: require('./package.json').version
 }
 
-// export the provider so koop has access to it
 module.exports = provider

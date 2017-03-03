@@ -1,31 +1,31 @@
-var test = require('tape')
-var koop = require('koop/lib')
-var sinon = require('sinon')
-var Model = require('../models/Sample')
-var sample
+/*
+  model-test.js
 
-koop.Cache = new koop.DataCache(koop)
-koop.Cache.db = koop.LocalDB
-sample = new Model(koop)
+  This file is optional, but is strongly recommended. It tests the `getData` function to ensure its translating
+  correctly.
+*/
 
-test('model: setup', function (t) {
-  sinon.stub(sample, 'request', function (url, callback) {
-    return callback(null, [{type: 'FeatureCollection', features: []}])
-  })
-  t.end()
-})
+const test = require('tape')
+const model = require('../model')()
+const nock = require('nock')
 
-test('model: find', function (t) {
-  sample.find(1, {}, function (err, data) {
-    t.error(err, 'data returned without error')
-    t.ok(data, 'data exists')
-    t.ok(Array.isArray(data), 'data is an array')
-    t.equal(data[0].type, 'FeatureCollection', 'data contains object of type FeatureCollection')
+test('should properly fetch from the API and translate features', t => {
+  nock('https://developer.trimet.org')
+  .get('/ws/v2/vehicles/onRouteOnly/false/appid/8A0EBB788E8205888807BAC97')
+  .reply(200, require('./fixtures/input.json'))
+
+  model.getData((err, geojson) => {
+    t.error(err)
+    t.equal(geojson.type, 'FeatureCollection', 'creates a feature collection object')
+    t.ok(geojson.features, 'has features')
+    const feature = geojson.features[0]
+    t.equal(feature.type, 'Feature', 'has proper type')
+    t.equal(feature.geometry.type, 'Point', 'creates point geometry')
+    t.equal(feature.geometry.coordinates, [-122.675109, 45.5003833], 'translates geometry correctly')
+    t.ok(feature.properties, 'creates attributes')
+    t.equal(feature.properties.expires, new Date(1484268019000).toISOString(), 'translates expires field correctly')
+    t.equal(feature.properties.expires, new Date(1484268019000).toISOString(), 'translates serviceDate field correctly')
+    t.equal(feature.properties.expires, new Date(1484268019000).toISOString(), 'translates time field correctly')
     t.end()
   })
-})
-
-test('model: teardown', function (t) {
-  sample.request.restore()
-  t.end()
 })
