@@ -1,8 +1,7 @@
-[![Build Status](https://travis-ci.org/koopjs/koop-sample-provider.svg?branch=master)](https://travis-ci.org/koopjs/koop-sample-provider)
+[![Build Status](https://travis-ci.org/koopjs/koop-sample-provider.svg?branch=master)](https://travis-ci.org/koopjs/koop-sample-provider) [![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-sample-provider.svg)](https://greenkeeper.io/)
+
 
 # Koop Sample Provider
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-sample-provider.svg)](https://greenkeeper.io/)
 
 This is a sample that demonstrates how to build a Koop Provider. Full documentation is provided [here](https://koopjs.github.io/docs/specs/provider/).
 
