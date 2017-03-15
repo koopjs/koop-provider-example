@@ -1,7 +1,7 @@
 {
-  "name": "koop-trimet",
-  "version": "1.0.8",
-  "description": "A Trimet provider for koop",
+  "name": "koop-provider-github",
+  "version": "1.0.0",
+  "description": "A GitHub provider for koop",
   "main": "index.js",
   "directories": {
     "test": "test"
