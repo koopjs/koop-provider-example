@@ -6,7 +6,8 @@
 */
 
 const test = require('tape')
-const model = require('../model')()
+const Model = require('../model')
+const model = new Model()
 const nock = require('nock')
 
 test('should properly fetch from the API and translate features', t => {
