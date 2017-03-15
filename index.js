@@ -8,9 +8,9 @@
 
 const provider = {
   type: 'provider',
-  name: 'sample',
-  hosts: false,
-  disableIdParam: true,
+  name: 'github',
+  hosts: true,
+  disableIdParam: false,
   Controller: require('./controller'),
   Model: require('./model'),
   routes: require('./routes'),
