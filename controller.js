@@ -1,8 +1,8 @@
 /*
   controller.js
 
-  This file is usually optinal. If there are additional routes specified in routes.js
-  then the file is required and there must be correspinding functions to match those routes.
+  This file is not required unless additional routes specified in routes.js
+  If so, corresponding functions must be written to match those routes.
 
   Documentation: http://koopjs.github.io/docs/specs/provider/
 */
