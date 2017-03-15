@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/koopjs/koop-sample-provider.svg?branch=master)](https://travis-ci.org/koopjs/koop-sample-provider)
+
 # Koop Sample Provider
 
 This is a sample that demonstrates how to build a Koop Provider. Full documentation is provided [here](https://koopjs.github.io/docs/specs/provider/).
