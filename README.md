@@ -2,6 +2,8 @@
 
 # Koop Sample Provider
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-sample-provider.svg)](https://greenkeeper.io/)
+
 This is a sample that demonstrates how to build a Koop Provider. Full documentation is provided [here](https://koopjs.github.io/docs/specs/provider/).
 
 The data source in this case is the [TriMet Bus API](https://developer.trimet.org). You can see this provider in action [here](http://dcdev.maps.arcgis.com/home/item.html?id=2603e7e3f10742f78093edf8ea2adfd8#visualize).
