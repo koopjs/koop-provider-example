@@ -22,7 +22,7 @@ test('should properly fetch from the API and translate features', t => {
     const feature = geojson.features[0]
     t.equal(feature.type, 'Feature', 'has proper type')
     t.equal(feature.geometry.type, 'Point', 'creates point geometry')
-    t.equal(feature.geometry.coordinates, [-122.675109, 45.5003833], 'translates geometry correctly')
+    t.deepEqual(feature.geometry.coordinates, [-122.675109, 45.5003833], 'translates geometry correctly')
     t.ok(feature.properties, 'creates attributes')
     t.equal(feature.properties.expires, new Date(1484268019000).toISOString(), 'translates expires field correctly')
     t.equal(feature.properties.expires, new Date(1484268019000).toISOString(), 'translates serviceDate field correctly')
