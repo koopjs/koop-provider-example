@@ -1,5 +1,5 @@
 {
-  "name": "koop-sample-provider",
+  "name": "koop-provider-sample",
   "version": "1.0.0",
   "description": "A sample provider for koop",
   "main": "index.js",
@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/koopjs/koop-sample-provider.git"
+    "url": "git+https://github.com/koopjs/koop-provider-sample.git"
   },
   "bugs": {
-    "url": "https://github.com/koopjs/koop-sample-provider/issues"
+    "url": "https://github.com/koopjs/koop-provider-sample/issues"
   },
-  "homepage": "https://github.com/koopjs/koop-sample-provider",
+  "homepage": "https://github.com/koopjs/koop-provider-sample",
   "keywords": [
     "koop",
     "provider",
