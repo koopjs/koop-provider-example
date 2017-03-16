@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/koopjs/koop-sample-provider.svg?branch=master)](https://travis-ci.org/koopjs/koop-sample-provider) [![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-sample-provider.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/koopjs/koop-provider-sample.svg?branch=master)](https://travis-ci.org/koopjs/koop-provider-sample) [![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-provider-sample.svg)](https://greenkeeper.io/)
 
 
 # Koop Sample Provider
@@ -35,8 +35,8 @@ Tests:
 
 ## With Docker
 
-- `docker build -t koop-sample-provider .`
-- `docker run -it -p 8080:8080 koop-sample-provider`
+- `docker build -t koop-provider-sample .`
+- `docker run -it -p 8080:8080 koop-provider-sample`
 
 ## Publish to npm
 - run `npm init` and update the fields
