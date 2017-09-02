@@ -10,16 +10,37 @@ const config = require('config')
 
 function Model (koop) {}
 
-// This is the only public function you need to implement
+// Public function to return data from the
+// Return: GeoJSON FeatureCollection
+//
+// Config parameters (config/default.json)
+// req.
+//
+// URL path parameters:
+// req.params.host (if index.js:hosts true)
+// req.params.id  (if index.js:disableIdParam false)
+// req.params.layer
+// req.params.method
 Model.prototype.getData = function (req, callback) {
-  // Call the remote API with our developer key
   const key = config.trimet.key
+
+  // Call the remote API with our developer key
   request(`https://developer.trimet.org/ws/v2/vehicles/onRouteOnly/false/appid/${key}`, (err, res, body) => {
     if (err) return callback(err)
+
     // translate the response into geojson
     const geojson = translate(body)
-    // Cache data for 10 seconds at a time by setting the ttl or "Time to Live"
-    geojson.ttl = 10
+
+    // Optional: cache data for 10 seconds at a time by setting the ttl or "Time to Live"
+    // geojson.ttl = 10
+
+    // Optional: Service metadata and geometry type
+    // geojson.metadata = {
+    //   title: 'Koop Sample Provider',
+    //   description: `Generated from ${url}`,
+    //   geometryType: 'Polygon' // Default is automatic detection in Koop
+    // }
+
     // hand off the data to Koop
     callback(null, geojson)
   })
@@ -32,14 +53,14 @@ function translate (input) {
   }
 }
 
-function formatFeature (vehicle) {
+function formatFeature (inputFeature) {
   // Most of what we need to do here is extract the longitude and latitude
   const feature = {
     type: 'Feature',
-    properties: vehicle,
+    properties: inputFeature,
     geometry: {
       type: 'Point',
-      coordinates: [vehicle.longitude, vehicle.latitude]
+      coordinates: [inputFeature.longitude, inputFeature.latitude]
     }
   }
   // But we also want to translate a few of the date fields so they are easier to use downstream
@@ -52,40 +73,40 @@ function formatFeature (vehicle) {
 
 module.exports = Model
 
-/* Example raw API response
+/* Example provider API:
+   - needs to be converted to GeoJSON Feature Collection
 {
   "resultSet": {
   "queryTime": 1488465776220,
   "vehicle": [
     {
-      "expires": 1488466246000,
-      "signMessage": "Red Line to Beaverton",
-      "serviceDate": 1488441600000,
-      "loadPercentage": null,
-      "latitude": 45.5873117,
-      "nextStopSeq": 1,
-      "source": "tab",
-      "type": "rail",
-      "blockID": 9045,
-      "signMessageLong": "MAX  Red Line to City Center & Beaverton",
-      "lastLocID": 10579,
-      "nextLocID": 10579,
-      "locationInScheduleDay": 24150,
-      "newTrip": false,
-      "longitude": -122.5927705,
-      "direction": 1,
-      "inCongestion": null,
-      "routeNumber": 90,
-      "bearing": 145,
-      "garage": "ELMO",
       "tripID": "7144393",
-      "delay": -16,
-      "extraBlockID": null,
-      "messageCode": 929,
-      "lastStopSeq": 26,
-      "vehicleID": 102,
+      "signMessage": "Red Line to Beaverton",
+      "expires": 1488466246000,
+      "serviceDate": 1488441600000,
       "time": 1488465767051,
-      "offRoute": false
+      "latitude": 45.5873117,
+      "longitude": -122.5927705,
+    }
+  ]
+}
+
+Converted to GeoJSON:
+
+{
+  "type": "FeatureCollection",
+  "features": [
+    "type": "Feature",
+    "properties": {
+      "tripID": "7144393",
+      "signMessage": "Red Line to Beaverton",
+      "expires": "2017-03-02T14:50:46.000Z",
+      "serviceDate": "2017-03-02T08:00:00.000Z",
+      "time": "2017-03-02T14:42:47.051Z",
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-122.5927705, 45.5873117]
     }
   ]
 }
