@@ -8,7 +8,7 @@ const koop = new Koop()
 
 // Install Craigslist Provider
 const koopCraigslist = require('./koop-provider-craigslist')
-//Add middleware to provider routes to prevent unauntheticated access
+// Add middleware to provider routes to prevent unauntheticated access
 koop.server.use(`/${koopCraigslist.name}`, koopCraigslist.middleware.tokenValidator(koopCraigslist.name))
 
 koop.register(koopCraigslist)
