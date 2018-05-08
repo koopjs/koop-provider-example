@@ -6,9 +6,12 @@ process.on('SIGTERM', () => process.exit(0))
 const Koop = require('koop')
 const koop = new Koop()
 
-// Install the Sample Provider
-const provider = require('./')
-koop.register(provider)
+// Install Craigslist Provider
+const koopCraigslist = require('./koop-provider-craigslist')
+// Add middleware to provider routes to prevent unauntheticated access
+koop.server.use(`/${koopCraigslist.name}`, koopCraigslist.middleware.tokenValidator(koopCraigslist.name))
+
+koop.register(koopCraigslist)
 
 if (process.env.DEPLOY === 'export') {
   module.exports = koop.server
