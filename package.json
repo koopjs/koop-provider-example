@@ -9,20 +9,20 @@
   "scripts": {
     "start": "node server.js",
     "test": "standard && tape test/*.js | tap-spec",
-    "lamda-create": "claudia create --name koop-provider-geojson --handler lambda.handler --deploy-proxy-api --region us-east-1 --set-env KOOP_PORT=80 --set-env DEPLOY=export",
+    "lambda-create": "claudia create --name koop-provider-geojson --handler lambda.handler --deploy-proxy-api --region us-east-1 --set-env KOOP_PORT=80,DEPLOY=export",
     "lambda-update": "claudia update"
   },
   "dependencies": {
-    "config": "^1.25.1",
-    "koop": "^3.4.0",
+    "config": "^3.0.0",
+    "koop": "^3.10.1",
     "request": "^2.79.0"
   },
   "author": "Daniel Fenton",
   "license": "Apache-2.0",
   "devDependencies": {
-    "nock": "^9.0.2",
-    "standard": "^11.0.0",
-    "tap-spec": "^4.1.1",
+    "nock": "^12.0.1",
+    "standard": "^12.0.0",
+    "tap-spec": "^5.0.0",
     "tape": "^4.6.3"
   },
   "repository": {

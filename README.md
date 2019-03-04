@@ -8,7 +8,7 @@ This is a sample that demonstrates how to build a Koop Provider. You can clone t
 
 The data source in this example is the [TriMet Bus API](https://developer.trimet.org). You can see this provider in action [here](http://dcdev.maps.arcgis.com/home/item.html?id=2603e7e3f10742f78093edf8ea2adfd8#visualize).
 
-Full documentation is provided [here](https://koopjs.github.io/docs/specs/provider/).
+Full documentation is provided [here](https://koopjs.github.io/docs/usage/provider).
 
 ## Getting started
 

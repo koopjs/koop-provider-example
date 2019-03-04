@@ -3,7 +3,7 @@
 
   This file is required. It's role is to specify configuration settings.
 
-  Documentation: http://koopjs.github.io/docs/specs/provider/
+  Documentation: http://koopjs.github.io/docs/usage/provider
 */
 
 // Define the provider path
