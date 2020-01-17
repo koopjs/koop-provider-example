@@ -5,7 +5,7 @@
 
   Documentation: http://koopjs.github.io/docs/usage/provider
 */
-const request = require('request').defaults({gzip: true, json: true})
+const request = require('request').defaults({ gzip: true, json: true })
 const config = require('config')
 
 function Model (koop) {}

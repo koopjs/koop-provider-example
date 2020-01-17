@@ -8,16 +8,16 @@
 
 // Define the provider path
 // /:name/:hosts?/:disableIdParam?/FeatureServer/:layer/:method
-// e.g. /sample/FeatureServer/0/query
+// e.g. /example/FeatureServer/0/query
 const provider = {
   type: 'provider',
-  name: 'sample',
+  name: 'example',
   hosts: false, // if true, also adds disableIdParam
   disableIdParam: true, // if true, adds to path and req.params
   Controller: require('./controller'),
   Model: require('./model'),
   routes: require('./routes'),
-  version: require('./package.json').version
+  version: require('../package.json').version
 }
 
 module.exports = provider
