@@ -1,6 +1,6 @@
 # Koop Provider Example
 
-[![Build Status](https://travis-ci.org/koopjs/koop-provider-sample.svg?branch=master)](https://travis-ci.org/koopjs/koop-provider-sample) [![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-provider-example.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/koopjs/koop-provider-example.svg?branch=master)](https://travis-ci.org/koopjs/koop-provider-example) [![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-provider-example.svg)](https://greenkeeper.io/)
 
 
 This is an example that demonstrates how to build a Koop Provider. You can clone this project, and use it to start a new provider. This sample can run a local server, deploy to AWS Lambda or Docker for testing and operations. Once the provider is published to NPM, then it can be used with other Koop providers and outputs in a larger project.
