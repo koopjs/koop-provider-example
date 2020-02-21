@@ -11,7 +11,7 @@
     "test": "standard && tape test/*.js | tap-spec"
   },
   "dependencies": {
-    "config": "^3.2.5",
+    "config": "^3.2.6",
     "koop": "^3.17.0",
     "request": "^2.88.0"
   },
