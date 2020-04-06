@@ -36,7 +36,7 @@ Model.prototype.getData = function (req, callback) {
 
     // Optional: Service metadata and geometry type
     // geojson.metadata = {
-    //   title: 'Koop Sample Provider',
+    //   name: 'Koop Sample Provider',
     //   description: `Generated from ${url}`,
     //   geometryType: 'Polygon' // Default is automatic detection in Koop
     // }
