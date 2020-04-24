@@ -22,7 +22,7 @@
     "nock": "^11.7.2",
     "standard": "^14.3.1",
     "tap-spec": "^5.0.0",
-    "tape": "^4.13.0"
+    "tape": "^5.0.0"
   },
   "repository": {
     "type": "git",
